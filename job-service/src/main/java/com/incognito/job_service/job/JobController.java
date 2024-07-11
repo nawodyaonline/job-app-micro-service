@@ -30,12 +30,12 @@ public class JobController {
     }
 
     @GetMapping("/jobs/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable  Long id){
-        Job job = jobService.getJobById(id);
-        if(Objects.isNull(job)){
-            return new ResponseEntity<>(new Job(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<JobWithCompanyDTO> getJobById(@PathVariable  Long id){
+        JobWithCompanyDTO jobWithCompanyDTO = jobService.getJobById(id);
+        if(Objects.isNull(jobWithCompanyDTO)){
+            return new ResponseEntity<>(new JobWithCompanyDTO(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(job, HttpStatus.OK);
+        return new ResponseEntity<>(jobWithCompanyDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/jobs/{id}")

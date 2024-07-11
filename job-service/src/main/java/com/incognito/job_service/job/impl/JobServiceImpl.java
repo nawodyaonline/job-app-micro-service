@@ -6,6 +6,8 @@ import com.incognito.job_service.job.JobRespository;
 import com.incognito.job_service.job.JobService;
 import com.incognito.job_service.job.dto.JobWithCompanyDTO;
 import com.incognito.job_service.job.external.Company;
+import com.netflix.discovery.converters.Auto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,9 +20,13 @@ import java.util.stream.Collectors;
 public class JobServiceImpl implements JobService {
 
     JobRespository jobRespository;
+    RestTemplate restTemplate;
 
-    public JobServiceImpl(JobRespository jobRespository) {
+
+    @Autowired
+    public JobServiceImpl(JobRespository jobRespository, RestTemplate restTemplate) {
         this.jobRespository = jobRespository;
+        this.restTemplate = restTemplate;
     }
 
     private Long nextId = 1L;
@@ -34,10 +40,10 @@ public class JobServiceImpl implements JobService {
     }
 
     private JobWithCompanyDTO convertToDto(Job job) {
-        RestTemplate restTemplate = new RestTemplate();
+//        RestTemplate restTemplate = new RestTemplate();
         JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
         jobWithCompanyDTO.setJob(job);
-        Company company = restTemplate.getForObject("http://localhost:8081/companies/" + job.getCompanyId(), Company.class);
+        Company company = restTemplate.getForObject("http://COMPANY-SERVICE:8081/companies/" + job.getCompanyId(), Company.class);
         jobWithCompanyDTO.setCompany(company);
         return jobWithCompanyDTO;
 

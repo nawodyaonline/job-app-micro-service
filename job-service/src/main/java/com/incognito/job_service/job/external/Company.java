@@ -10,10 +10,6 @@ public class Company {
     private String name;
     private String description;
 
-
-
-    public Company() {}
-
     public Long getId() {
         return id;
     }

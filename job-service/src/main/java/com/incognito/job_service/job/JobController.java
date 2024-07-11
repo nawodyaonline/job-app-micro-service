@@ -1,6 +1,7 @@
 package com.incognito.job_service.job;
 
 
+import com.incognito.job_service.job.dto.JobWithCompanyDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class JobController {
     }
 
     @GetMapping("/jobs")
-    public ResponseEntity<List<Job>> findAll(){
+    public ResponseEntity<List<JobWithCompanyDTO>> findAll(){
         return new ResponseEntity<>(jobService.findAll(), HttpStatus.OK);
     }
 

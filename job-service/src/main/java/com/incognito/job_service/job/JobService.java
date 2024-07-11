@@ -1,9 +1,11 @@
 package com.incognito.job_service.job;
 
+import com.incognito.job_service.job.dto.JobWithCompanyDTO;
+
 import java.util.List;
 
 public interface JobService {
-    List<Job> findAll();
+    List<JobWithCompanyDTO> findAll();
     void createJob(Job job);
 
     Job getJobById(Long id);

@@ -4,10 +4,9 @@ package com.incognito.job_service.job.impl;
 import com.incognito.job_service.job.Job;
 import com.incognito.job_service.job.JobRespository;
 import com.incognito.job_service.job.JobService;
-import com.incognito.job_service.job.dto.JobWithCompanyDTO;
+import com.incognito.job_service.job.dto.JobDTO;
 import com.incognito.job_service.job.external.Company;
 import com.incognito.job_service.job.mapper.JobMapper;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,14 +32,14 @@ public class JobServiceImpl implements JobService {
     private Long nextId = 1L;
 
     @Override
-    public List<JobWithCompanyDTO> findAll() {
+    public List<JobDTO> findAll() {
         List<Job> jobs = jobRespository.findAll();
-        List<JobWithCompanyDTO> jobWithCompanyDTOS = new ArrayList<>();
+        List<JobDTO> jobDTOS = new ArrayList<>();
 
         return  jobs.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    private JobWithCompanyDTO convertToDto(Job job) {
+    private JobDTO convertToDto(Job job) {
         Company company = restTemplate.getForObject("http://COMPANY-SERVICE:8081/companies/" + job.getCompanyId(), Company.class);
         return JobMapper.mapJobToJobWithCompanyDTO(job, company);
     }
@@ -52,7 +51,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public JobWithCompanyDTO getJobById(Long id) {
+    public JobDTO getJobById(Long id) {
         Job job = jobRespository.findById(id).orElse(null);
         return convertToDto(job);
     }

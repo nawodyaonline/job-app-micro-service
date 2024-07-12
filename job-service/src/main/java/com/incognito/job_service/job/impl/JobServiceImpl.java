@@ -6,8 +6,12 @@ import com.incognito.job_service.job.JobRespository;
 import com.incognito.job_service.job.JobService;
 import com.incognito.job_service.job.dto.JobDTO;
 import com.incognito.job_service.job.external.Company;
+import com.incognito.job_service.job.external.Review;
 import com.incognito.job_service.job.mapper.JobMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,14 +38,22 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<JobDTO> findAll() {
         List<Job> jobs = jobRespository.findAll();
-        List<JobDTO> jobDTOS = new ArrayList<>();
 
         return  jobs.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     private JobDTO convertToDto(Job job) {
         Company company = restTemplate.getForObject("http://COMPANY-SERVICE:8081/companies/" + job.getCompanyId(), Company.class);
-        return JobMapper.mapJobToJobWithCompanyDTO(job, company);
+
+        ResponseEntity<List<Review>> reviewResponse = restTemplate.exchange(
+                "http://REVIEW-SERVICE:8083/reviews?companyId=" + job.getCompanyId(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Review>>() {
+                });
+
+        List<Review> reviews = reviewResponse.getBody();
+        return JobMapper.mapJobToJobWithCompanyDTO(job, company, reviews);
     }
 
     @Override

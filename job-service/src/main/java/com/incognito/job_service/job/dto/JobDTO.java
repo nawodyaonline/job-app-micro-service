@@ -3,6 +3,8 @@ package com.incognito.job_service.job.dto;
 import com.incognito.job_service.job.external.Company;
 import com.incognito.job_service.job.external.Review;
 
+import java.util.List;
+
 public class JobDTO {
     private Long id;
     private String title;
@@ -11,13 +13,13 @@ public class JobDTO {
     private String maxSalary;
     private String location;
     private Company company;
-    private Review review;
+    private List<Review> review;
 
-    public Review getReview() {
+    public List<Review> getReview() {
         return review;
     }
 
-    public void setReview(Review review) {
+    public void setReview(List<Review> review) {
         this.review = review;
     }
 

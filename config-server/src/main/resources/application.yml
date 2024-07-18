@@ -1,7 +1,7 @@
 spring:
   application:
     name: config-server
-Config URIs
+#Config URIs
   cloud:
     config:
       server:

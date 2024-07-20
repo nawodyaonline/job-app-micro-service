@@ -1,0 +1,40 @@
+server:
+  port: 8084
+
+spring:
+  config:
+    name: Gateway-Service
+
+#Gateway configs
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: company_service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/companies/**
+        - id: job_service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/jobs/**
+        - id: review_service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/reviews/**
+
+#Eureka client configs
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+#Zipking configs
+management:
+  trace:
+    sample:
+      probability: 1.0
+
+

@@ -38,3 +38,7 @@ management:
       probability: 1.0
 
 
+logging:
+  level:
+    root: info
+    org.springframework.cloud.gateway: TRACE

@@ -2,6 +2,8 @@ server:
   port: 8084
 
 spring:
+  application:
+    name: Gateway-service
   config:
     name: Gateway-Service
 
@@ -15,7 +17,7 @@ spring:
           predicates:
             - Path=/companies/**
         - id: job_service
-          uri: http://localhost:8082
+          uri: lb://JOB-SERVICE-DEV
           predicates:
             - Path=/jobs/**
         - id: review_service

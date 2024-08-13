@@ -24,6 +24,16 @@ spring:
           uri: lb://REVIEW-SERVICE
           predicates:
             - Path=/reviews/**
+        - id: eureka-server
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/main
+          filters:
+            - SetPath=/ #This filters says that when ever the request comes to /eureka/main direct to the / which means root
+        - id: eureka-server-static  #Instead of these lines css statics are not loaded
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
 
 #Eureka client configs
 eureka:

@@ -13,7 +13,7 @@ spring:
       mvc:
         routes:
         - id: company_service
-          uri: http://localhost:8081
+          uri: lb://COMPANY-SERVICE
           predicates:
             - Path=/companies/**
         - id: job_service
@@ -21,7 +21,7 @@ spring:
           predicates:
             - Path=/jobs/**
         - id: review_service
-          uri: http://localhost:8083
+          uri: lb://REVIEW-SERVICE
           predicates:
             - Path=/reviews/**
 

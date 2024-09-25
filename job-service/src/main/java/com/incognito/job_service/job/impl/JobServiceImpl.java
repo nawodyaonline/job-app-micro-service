@@ -11,6 +11,8 @@ import com.incognito.job_service.job.external.Company;
 import com.incognito.job_service.job.external.Review;
 import com.incognito.job_service.job.mapper.JobMapper;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +27,9 @@ public class JobServiceImpl implements JobService {
 
     private final CompanyClient companyClient;
     private final ReviewClient reviewClient;
+
+    int attempts = 0;
+
     JobRespository jobRespository;
     RestTemplate restTemplate;
 
@@ -40,8 +45,10 @@ public class JobServiceImpl implements JobService {
     private Long nextId = 1L;
 
     @Override
-    @CircuitBreaker(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
+    @RateLimiter(name = "combanyBreaker",
+            fallbackMethod = "companyBreakerFallback")
     public List<JobDTO> findAll() {
+        System.out.println("Attempt: " + ++attempts);
         List<Job> jobs = jobRespository.findAll();
 
         return  jobs.stream().map(this::convertToDto).collect(Collectors.toList());

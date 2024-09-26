@@ -16,6 +16,12 @@ spring:
   sql:
     init:
       mode: always
+  #RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 #Eureka client configs
 eureka:
@@ -30,3 +36,4 @@ management:
   tracing:
     sampling:
       probability: 1.0
+

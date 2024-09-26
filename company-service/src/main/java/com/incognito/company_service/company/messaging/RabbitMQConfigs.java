@@ -1,4 +1,4 @@
-package com.incognito.review_service.review.messaging;
+package com.incognito.company_service.company.messaging;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

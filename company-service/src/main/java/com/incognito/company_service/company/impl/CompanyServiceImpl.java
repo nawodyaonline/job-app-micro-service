@@ -3,6 +3,7 @@ package com.incognito.company_service.company.impl;
 import com.incognito.company_service.company.Company;
 import com.incognito.company_service.company.CompanyRepository;
 import com.incognito.company_service.company.CompanyService;
+import com.incognito.company_service.company.dto.ReviewMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,12 @@ public class CompanyServiceImpl implements CompanyService {
             companyToUpdate.setDescription(company.getDescription());
             companyRepository.save(companyToUpdate);
         }
+    }
+
+    @Override
+    public void updateCompanyRating(ReviewMessage reviewMessage) {
+        System.out.println("***** Received from RabbitMQ *****");
+        System.out.println(reviewMessage.getDescription());
     }
 
     @Override

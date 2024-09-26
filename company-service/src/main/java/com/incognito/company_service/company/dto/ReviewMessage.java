@@ -1,4 +1,4 @@
-package com.incognito.review_service.review.dto;
+package com.incognito.company_service.company.dto;
 
 public class ReviewMessage {
     private Long id;

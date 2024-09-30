@@ -3,7 +3,6 @@ package com.incognito.review_service.review.messaging;
 import com.incognito.review_service.review.Review;
 import com.incognito.review_service.review.dto.ReviewMessage;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 @Service

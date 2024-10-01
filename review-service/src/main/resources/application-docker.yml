@@ -1,15 +1,13 @@
 company-service:
-  url: http://localhost:8081
+  url: http://company:8081
 job-service:
-  url: http://localhost:8082
+  url: http://job:8082
 review-service:
-  url: http://localhost:8083
+  url: http://review:8083
 
-server:
-  port: 8081
 spring:
   application:
-    name: company-service
+    name: review-service
   datasource:
     url: jdbc:postgresql://postgres:5432/company
     username: postgres
@@ -30,11 +28,14 @@ spring:
     username: guest
     password: guest
 
+server:
+  port: 8083
+
 #Eureka client configs
 eureka:
   client:
-    register-with-eureka: true
     fetch-registry: true
+    register-with-eureka: true
     service-url:
       default-zone: http://servicereg:8761/eureka/
 
@@ -46,4 +47,3 @@ management:
   tracing:
     sampling:
       probability: 1.0
-

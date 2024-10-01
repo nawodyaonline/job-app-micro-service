@@ -1,10 +1,17 @@
+company-service:
+  url: http://company:8081
+job-service:
+  url: http://job:8082
+review-service:
+  url: http://review:8083
+
 spring:
 #  application:
 #    name: Job-Service
   datasource:
-    url: jdbc:postgresql://localhost:5432/job
-    username: ${PSQL_USERNAME}
-    password: ${PSQL_PASSWORD}
+    url: jdbc:postgresql://postgres:5432/job
+    username: postgres
+    password: n930310@
   jpa:
     generate-ddl: true
     hibernate:
@@ -17,7 +24,7 @@ spring:
 
 #  config server
   config:
-    import: optional:configserver:http://fedora:8080
+    import: optional:configserver:http://config-server:8080
   profiles:
     active: dev
 
@@ -30,10 +37,13 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      default-zone: http://application.yml:8761/eureka/
+      default-zone: http://servicereg:8761/eureka/
 
 #Zipkin
 management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
   tracing:
     sampling:
       probability: 1.0

@@ -1,10 +1,17 @@
+company-service:
+  url: http://localhost:8081
+job-service:
+  url: http://localhost:8082
+review-service:
+  url: http://localhost:8083
+
 spring:
   application:
     name: review-service
   datasource:
     url: jdbc:postgresql://localhost:5432/review
-    username: ${PSQL_USERNAME}
-    password: ${PSQL_PASSWORD}
+    username: postgres
+    password: n930310@
   jpa:
     generate-ddl: true
     hibernate:

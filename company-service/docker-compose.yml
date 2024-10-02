@@ -90,7 +90,7 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka
   reviewms:
     image: nawodyaonline/reviewms:latest
-    container_name: job
+    container_name: review
     ports:
       - 8083:8083
     depends_on:

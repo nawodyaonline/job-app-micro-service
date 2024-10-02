@@ -10,8 +10,8 @@ spring:
 #    name: Job-Service
   datasource:
     url: jdbc:postgresql://localhost:5432/job
-    username: ${PSQL_USERNAME}
-    password: ${PSQL_PASSWORD}
+    username: postgres
+    password: n930310@
   jpa:
     generate-ddl: true
     hibernate:

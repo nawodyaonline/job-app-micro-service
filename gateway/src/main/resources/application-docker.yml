@@ -1,0 +1,61 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: Gateway-service
+  config:
+    name: Gateway-Service
+
+#Gateway configs
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: company_service
+          uri: http://company:8081
+          predicates:
+            - Path=/companies/**
+        - id: job_service
+          uri: http://job:8082
+          predicates:
+            - Path=/jobs/**
+        - id: review_service
+          uri: http://review:8083
+          predicates:
+            - Path=/reviews/**
+        - id: eureka-server
+          uri: http://servicereg:8761
+          predicates:
+            - Path=/eureka/main
+          filters:
+            - SetPath=/ #This filters says that when ever the request comes to /eureka/main direct to the / which means root
+        - id: eureka-server-static  #Instead of these lines css statics are not loaded
+          uri: http://servicereg:8761
+          predicates:
+            - Path=/eureka/**
+
+#Eureka client configs
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://servicereg:8761/eureka/
+
+#Zipking configs
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+
+
+
+logging:
+  level:
+    root: info
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway.RouteDefinitionLocator: INFO

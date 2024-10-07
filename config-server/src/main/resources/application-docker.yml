@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: config-server
+#Config URIs
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/nawodyaonline/app-config
+
+# Eureka client
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://servicereg:8761/eureka/
+

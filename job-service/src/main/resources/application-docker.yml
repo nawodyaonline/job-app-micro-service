@@ -24,7 +24,7 @@ spring:
 
 #  config server
   config:
-    import: optional:configserver:http://config-server:8080
+    import: optional:configserver:http://config-server-ms:8080
   profiles:
     active: dev
 

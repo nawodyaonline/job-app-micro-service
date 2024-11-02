@@ -45,7 +45,7 @@ public class JobServiceImpl implements JobService {
     private Long nextId = 1L;
 
     @Override
-    @RateLimiter(name = "combanyBreaker",
+    @RateLimiter(name = "companyBreaker",
             fallbackMethod = "companyBreakerFallback")
     public List<JobDTO> findAll() {
         System.out.println("Attempt: " + ++attempts);
